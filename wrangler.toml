@@ -1,5 +1,12 @@
-name = "hasso-web-page"  # Имя вашего проекта
-type = "pages"  # Тип проекта для Cloudflare Pages
+name = "hasso-web-page"
+type = "pages"
 main = "./index.html"
 
-compatibility_date = "2024-11-19"  # Укажите актуальную дату
+compatibility_date = "2024-11-19" 
+
+[build]
+  command = "" 
+  directory = "." 
+
+[env.production]
+  route = "hasso.tech/*"
