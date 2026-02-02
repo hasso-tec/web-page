@@ -11,7 +11,7 @@ body, html {
 
 /* Background */
 .background {
-    background: url('./images/background.png') no-repeat center center fixed;
+    background: url('images/background.png') no-repeat center center fixed;
     background-size: cover;
     position: relative;
     width: 100vw; /* Width equals the window width */
@@ -124,10 +124,10 @@ body, html {
 
 /* Individual button texts */
 .button.linkedin::before {
-    content: "fetch('https://www.linkedin.com/in/michael-hasso/');";
+    content: "fetch('linkedin.com/in/michael-hasso');";
 }
 .button.github::before {
-    content: "fetch('https://github.com/neuroborus');";
+    content: "fetch('github.com/neuroborus');";
 }
 .button.resume::before {
     content: "fetch('cv.hasso.tech');";
