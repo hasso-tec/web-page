@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 /* General styles */
 body, html {
     margin: 0;
@@ -61,11 +63,6 @@ body, html {
     gap: 2vh; /* Space between buttons: 2% of the window height */
     position: relative;
     z-index: 2; /* Add this line */
-}
-
-/* Zoom effect on hover */
-.button:hover {
-    transform: scale(1.1);
 }
 
 /* Common button styles */
@@ -133,10 +130,6 @@ body, html {
     content: "fetch('cv.hasso.tech');";
 }
 
-/* Remove pseudo-element for Grafana */
-.button.grafana::before {
-    content: none; /* Removes scrolling code */
-}
 
 /* Style for pseudo-element */
 .button::before {
@@ -161,23 +154,4 @@ body, html {
     100% {
         top: -100%;
     }
-}
-
-/* Grafana button */
-.grafana {
-    position: fixed; /* Use fixed to pin the button in the corner */
-    bottom: 2vh; /* Distance from the bottom edge */
-    right: 2vw;  /* Distance from the right edge */
-    background: url('./images/grafana.png') no-repeat center center;
-    background-size: contain;
-    width: 5vw;
-    height: 5vw;
-    border-radius: 50%;
-    border: none;
-    padding: 0;
-    z-index: 3; /* Place the button above other elements */
-    box-shadow: none;
-}
-.grafana:hover {
-    transform: scale(1.1);
 }
