@@ -4,10 +4,11 @@
 body, html {
     margin: 0;
     padding: 0;
-    height: 100%;
+    min-height: 100%;
     font-family: Poppins, sans-serif;
     color: white;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     font-size: 1rem; /* Base font size */
 }
 
@@ -17,8 +18,8 @@ body, html {
     background-size: cover;
     position: relative;
     width: 100vw; /* Width equals the window width */
-    height: 100vh; /* Height equals the window height */
     min-height: 100vh;
+    min-height: 100dvh;
     z-index: 0; /* Ensure the background is at the very back */
 }
 
@@ -39,30 +40,42 @@ body, html {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
     position: relative; /* Ensure the container is the reference for absolute positioning */
+    padding: clamp(16px, 4vh, 48px) 16px;
 }
 
 /* Profile photo */
 .profile-photo {
     border-radius: 50%;
-    width: 20vw; /* Width is 20% of the window width */
-    height: 20vw; /* Height is 20% of the window width (to make it a circle) */
+    width: clamp(150px, 20vw, 260px); /* Width is 20% of the window width */
+    aspect-ratio: 1 / 1;
+    height: auto;
     min-width: 150px;
-    min-height: 150px;
-    margin-bottom: 2vh; /* Bottom margin: 2% of the window height */
+    margin-bottom: clamp(12px, 2vh, 24px); /* Bottom margin: 2% of the window height */
     border: 0.2rem solid white; /* Border thickness depends on the font size */
     position: relative; /* Add this line */
     z-index: 1; /* Ensure the photo is behind the buttons */
+    object-fit: cover;
+    display: block;
 }
 
 /* Buttons */
 .buttons {
     display: flex;
     flex-direction: column;
-    gap: 2vh; /* Space between buttons: 2% of the window height */
+    gap: clamp(10px, 2vh, 20px); /* Space between buttons */
     position: relative;
     z-index: 2; /* Add this line */
+}
+
+@media (max-height: 700px) {
+    .container {
+        justify-content: flex-start;
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
 }
 
 /* Common button styles */
@@ -89,6 +102,35 @@ body, html {
     justify-content: flex-start; /* Horizontal alignment to center */
 }
 
+.button::after {
+    content: "";
+    position: absolute;
+    inset: 0.15em;
+    border-radius: 0.45em;
+    box-shadow:
+        inset 0 0 0 0.12em rgba(96, 165, 250, 0.95),
+        0 0 0.35em rgba(96, 165, 250, 0.5),
+        0 0 0.9em rgba(59, 130, 246, 0.45);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.button:focus-visible {
+    outline: 0.12em solid rgba(96, 165, 250, 0.7);
+    outline-offset: 0.15em;
+}
+
+.button.is-active {
+    transform: scale(1.08);
+}
+
+.button.is-active::after {
+    opacity: 1;
+    animation: electric-glow 1.8s ease-in-out infinite;
+}
+
 .button .icon {
     width: 5vw; /* Icon size */
     height: 5vw;
@@ -102,6 +144,12 @@ body, html {
     box-shadow: 0 0 calc(0.2 * 5vw) rgba(255, 255, 255, 0.5);
 }
 
+.button .icon,
+.button .label {
+    position: relative;
+    z-index: 1;
+}
+
 .button.linkedin .icon {
     background-image: url('./images/icons/ln.png'); /* Path to LinkedIn icon */
 }
@@ -112,11 +160,6 @@ body, html {
 
 .button.resume .icon {
     background-image: url('./images/icons/cv.png'); /* Path to Resume icon */
-}
-
-/* Zoom effect on hover */
-.button:hover {
-    transform: scale(1.1);
 }
 
 /* Individual button texts */
@@ -143,7 +186,7 @@ body, html {
     white-space: nowrap;
     animation: scroll 10s linear infinite;
     animation-delay: 3s;
-    z-index: -1; /* Ensures the pseudo-element is behind the button */
+    z-index: -2; /* Keep scrolling text behind focus glow */
 }
 
 /* Scrolling code animation */
@@ -153,5 +196,32 @@ body, html {
     }
     100% {
         top: -100%;
+    }
+}
+
+@keyframes electric-glow {
+    0% {
+        box-shadow:
+            0 0 0.3em rgba(96, 165, 250, 0.45),
+            0 0 0.9em rgba(59, 130, 246, 0.4),
+            0 0 1.8em rgba(37, 99, 235, 0.25);
+        border-color: rgba(96, 165, 250, 0.7);
+        filter: drop-shadow(0 0 0.2em rgba(147, 197, 253, 0.4));
+    }
+    50% {
+        box-shadow:
+            0 0 0.6em rgba(96, 165, 250, 0.75),
+            0 0 1.4em rgba(59, 130, 246, 0.7),
+            0 0 2.6em rgba(37, 99, 235, 0.45);
+        border-color: rgba(147, 197, 253, 0.95);
+        filter: drop-shadow(0 0 0.6em rgba(191, 219, 254, 0.6));
+    }
+    100% {
+        box-shadow:
+            0 0 0.35em rgba(96, 165, 250, 0.5),
+            0 0 1.0em rgba(59, 130, 246, 0.45),
+            0 0 2.0em rgba(37, 99, 235, 0.3);
+        border-color: rgba(96, 165, 250, 0.8);
+        filter: drop-shadow(0 0 0.25em rgba(147, 197, 253, 0.45));
     }
 }
